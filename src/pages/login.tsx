@@ -1,8 +1,8 @@
 export default function Page() {
   return (
-    <section className="min-h-screen flex items-center flex-col gap-5 justify-center">
+    <section className="flex flex-col items-center justify-center min-h-screen gap-5">
       {/* Form */}
-      <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="shadow-xl card w-96 bg-base-100">
         <div className="card-body">
           <h2 className="card-title">Login to account</h2>
           <div className="flex flex-col gap-4">
@@ -12,7 +12,7 @@ export default function Page() {
               placeholder="Enter Username"
               name="uname"
               required
-              className="input input-bordered w-full max-w-xs"
+              className="w-full max-w-xs input input-bordered"
             />
             {/* Password input */}
             <input
@@ -20,11 +20,11 @@ export default function Page() {
               placeholder="Enter Password"
               name="psw"
               required
-              className="input input-bordered w-full max-w-xs"
+              className="w-full max-w-xs input input-bordered"
             />
           </div>
 
-          <div className="card-actions justify-end">
+          <div className="justify-end card-actions">
             <button className="btn btn-primary">Sign in</button>
           </div>
         </div>
@@ -33,9 +33,11 @@ export default function Page() {
 
       {/* VPN toggle */}
       <div className="flex gap-5">
-        <p>
-          Toggle VPN 
-        </p>
+        <p>Toggle VPN</p>
+        <input type="checkbox" className="toggle toggle-success" />
+      </div>
+      <div className="flex gap-5">
+        <p>In the bank</p>
         <input type="checkbox" className="toggle toggle-success" />
       </div>
     </section>
