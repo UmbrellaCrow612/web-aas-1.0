@@ -1,11 +1,17 @@
 import type { NextPage } from 'next'
-import { SearchBar } from '../components/SearchBar'
 
 const Home: NextPage = () => {
   // add logic if not logged in show denied and router push to login
   return (
-    <section className="min-h-screen">
-      <SearchBar />
+    <section className="flex flex-col items-center justify-center min-h-screen">
+      <div className="shadow-xl card w-96 bg-base-100">
+        <div className="card-body">
+          <h2 className="card-title">Admin actions</h2>
+          <div className="justify-end card-actions">
+            <button className="btn btn-primary">Create user</button>
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
