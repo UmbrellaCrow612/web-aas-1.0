@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   // add logic if not logged in show denied and router push to login
@@ -8,7 +9,9 @@ const Home: NextPage = () => {
         <div className="card-body">
           <h2 className="card-title">Admin actions</h2>
           <div className="justify-end card-actions">
-            <button className="btn btn-primary">Create user</button>
+            <Link href="/create">
+              <a className="btn btn-primary">Create user</a>
+            </Link>
           </div>
         </div>
       </div>
