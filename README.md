@@ -22,3 +22,10 @@ such as
 docs: changed docs
 
 ci: added files 
+
+
+connect to db run 
+
+```
+npx prisma generate
+```
