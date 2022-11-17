@@ -12,6 +12,16 @@ export default async function handle(
   const { firstName, lastName, address, annualSalary, age, Account } = req.body
   // Manually add the accounts and id
 
+  /*
+  
+  
+  IDEA - Pass the account option as a string from the front end 
+  and then check it here and add the stuff
+  
+  
+  
+  */
+
   const result = await prisma.customers.create({
     data: {
       FirstName: firstName,
