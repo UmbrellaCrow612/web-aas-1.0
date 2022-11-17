@@ -22,10 +22,21 @@ export default function Page() {
     }
   }
 
+  const clearData = (e: any) => {
+    e.preventDefault()
+
+    setFirstName('')
+    setLastName('')
+    setAccount('')
+    setAddress('')
+    setAnnualSalary(0)
+    setAge(0)
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-5 px-20 py-20">
       <div className="shadow-xl card w-96 bg-base-100">
-        <form className="card-body" onSubmit={submitData}>
+        <form className="card-body" onSubmit={(e) => e.preventDefault()}>
           <h2 className="card-title">Fill in the user details</h2>
           <label>First name</label>
           <input
@@ -82,8 +93,12 @@ export default function Page() {
             <option>Current account</option>
           </select>
           <div className="justify-end py-5 card-actions">
-            <button className="btn btn-primary">Create</button>
-            <button className="btn btn-primary">Clear</button>
+            <button className="btn btn-primary" onClick={submitData}>
+              Create
+            </button>
+            <button className="btn btn-primary" onClick={clearData}>
+              Clear
+            </button>
           </div>
         </form>
       </div>
