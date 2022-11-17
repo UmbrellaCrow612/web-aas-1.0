@@ -3,16 +3,31 @@ import { useState } from 'react'
 export default function Page() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
+  const [account, setAccount] = useState('')
   const [address, setAddress] = useState('')
   const [annualSalary, setAnnualSalary] = useState(0)
   const [age, setAge] = useState(0)
 
+  const submitData = async (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    try {
+      const body = { firstName, lastName, address, annualSalary, age }
+      await fetch(`/api/post`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-5 px-20 py-20">
       <div className="shadow-xl card w-96 bg-base-100">
-        <form className="card-body">
+        <form className="card-body" onSubmit={submitData}>
           <h2 className="card-title">Fill in the user details</h2>
-          <p>First name</p>
+          <label>First name</label>
           <input
             type="text"
             placeholder="First name"
@@ -21,7 +36,7 @@ export default function Page() {
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
-          <p>Last name</p>
+          <label>Last name</label>
           <input
             type="text"
             placeholder="Last name"
@@ -30,7 +45,7 @@ export default function Page() {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
-          <p>Address</p>
+          <label>Address</label>
           <input
             type="text"
             placeholder="Address"
@@ -39,7 +54,7 @@ export default function Page() {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
-          <p>Annual salary</p>
+          <label>Annual salary</label>
           <input
             type="number"
             placeholder="Annual salary"
@@ -48,7 +63,7 @@ export default function Page() {
             value={annualSalary}
             onChange={(e) => setAnnualSalary(e.target.valueAsNumber)}
           />
-          <p>Age</p>
+          <label>Age</label>
           <input
             type="number"
             placeholder="Age"
@@ -57,7 +72,7 @@ export default function Page() {
             value={age}
             onChange={(e) => setAge(e.target.valueAsNumber)}
           />
-          <p>Account</p>
+          <label>Account</label>
           <select className="w-full max-w-xs select select-bordered">
             <option disabled selected>
               Account
