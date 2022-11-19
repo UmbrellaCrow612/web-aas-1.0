@@ -9,7 +9,7 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { firstName, lastName, address, annualSalary, age, Account } = req.body
+  // const { firstName, lastName, address, annualSalary, age } = req.body
   // Manually add the accounts and id
 
   /*
@@ -22,21 +22,14 @@ export default async function handle(
   
   */
 
-  const result = await prisma.customers.create({
-    data: {
-      FirstName: firstName,
-      LastName: lastName,
-      Address: address,
-      AnnualSalary: annualSalary,
-      Age: age,
-      Account: {
-        // create: {
-         
-        // },
-      },
-    },
-  })
+  // const result = await prisma.customers.create({
+  //   data: {
+  //     FirstName: firstName,
+  //     LastName: lastName,
+   
+  //   },
+  // })
 
-  res.json(result)
+  // res.json(result)
   //   res.json(result)
 }

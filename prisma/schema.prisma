@@ -1,107 +1,61 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model Accounts {
-  Id              Int               @id @unique(map: "sqlite_autoindex_Accounts_1") @default(autoincrement())
-  Balance         Decimal
-  PinHash         String
-  IsFrozen        Int
-  CreditCardId    Int?              @unique(map: "sqlite_autoindex_Accounts_2")
-  CustomerId      Int?              @unique(map: "sqlite_autoindex_Accounts_3")
-  Customer        Customers?        @relation(fields: [CustomerId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  CreditCard      CreditCards?      @relation(fields: [CreditCardId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Current         Currents?
-  LongTermDeposit LongTermDeposits?
-  SimpleDeposit   SimpleDeposits?
-  Transactions    Transactions[]
-  Transfers       Transfers[]
+generator client {
+  provider = "prisma-client-js"
+}
+model Customer {
+  id                  String            @id @unique @default(cuid())
+  firstName           String
+  lastName            String
+  address             String
+  annualSalary        Float
+  isSpecialCustomer   Boolean           @default(false)
+  overdraftPercentage Float?
+  longtermDeposits    longTermDeposit[]
+  simpleDeposits      simpleDeposit[]
+  withdrawDeposits    withdrawDeposit[]
 }
 
-model CreditCards {
-  Id             Int       @id @unique(map: "sqlite_autoindex_CreditCards_1") @default(autoincrement())
-  CardNumberHash String
-  CreationDate   String
-  ExpireDate     String
-  CVV            String
-  IsSwallowed    Int
-  Account        Accounts?
+model Admin {
+  id       String @id @unique @default(cuid())
+  username String
+  password String
 }
 
-model Currents {
-  CurrentId Int      @id @unique(map: "sqlite_autoindex_Currents_1") @default(autoincrement())
-  AccountId Int      @unique(map: "sqlite_autoindex_Currents_2")
-  Account   Accounts @relation(fields: [AccountId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+model longTermDeposit {
+  id           String        @id @unique @default(cuid())
+  balance      Float
+  transactions transaction[]
+  Customer     Customer?     @relation(fields: [customerId], references: [id])
+  customerId   String?
 }
 
-model Customers {
-  Id              Int               @id @unique(map: "sqlite_autoindex_Customers_1") @default(autoincrement())
-  FirstName       String
-  LastName        String
-  Address         String
-  AnnualSalary    Decimal
-  Age             Int
-  Account         Accounts?
-  SpecialCustomer SpecialCustomers?
+model simpleDeposit {
+  id           String        @id @unique @default(cuid())
+  balance      Float
+  transactions transaction[]
+  Customer     Customer?     @relation(fields: [customerId], references: [id])
+  customerId   String?
 }
 
-model LongTermDeposits {
-  LongTermDepositId Int      @id @unique(map: "sqlite_autoindex_LongTermDeposits_1") @default(autoincrement())
-  AccountId         Int      @unique(map: "sqlite_autoindex_LongTermDeposits_2")
-  Account           Accounts @relation(fields: [AccountId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
+model withdrawDeposit {
+  id           String        @id @unique @default(cuid())
+  balance      Float
+  transactions transaction[]
+  Customer     Customer?     @relation(fields: [customerId], references: [id])
+  customerId   String?
 }
 
-model PhysicalCards {
-  Id         Int    @id @unique(map: "sqlite_autoindex_PhysicalCards_1") @default(autoincrement())
-  CardNumber String
-}
-
-model SimpleDeposits {
-  SimpleDepositId Int      @id @unique(map: "sqlite_autoindex_SimpleDeposits_1") @default(autoincrement())
-  AccountId       Int      @unique(map: "sqlite_autoindex_SimpleDeposits_2")
-  Account         Accounts @relation(fields: [AccountId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model SpecialCustomers {
-  SpecialCustomerId   Int       @id @unique(map: "sqlite_autoindex_SpecialCustomers_1") @default(autoincrement())
-  CustomerId          Int       @unique(map: "sqlite_autoindex_SpecialCustomers_2")
-  OverdraftPercentage Float
-  Customer            Customers @relation(fields: [CustomerId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model Transactions {
-  Id              Int               @id @unique(map: "sqlite_autoindex_Transactions_1") @default(autoincrement())
-  DateCreated     String
-  Amount          Float
-  AccountId       Int?
-  Account         Accounts?         @relation(fields: [AccountId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Transfer        Transfers?
-  WithdrawDeposit WithdrawDeposits?
-}
-
-model Transfers {
-  TransferId     Int          @id @unique(map: "sqlite_autoindex_Transfers_1") @default(autoincrement())
-  TransactionId  Int          @unique(map: "sqlite_autoindex_Transfers_2")
-  IsRecieved     Int
-  AccountOtherId Int
-  Account        Accounts     @relation(fields: [AccountOtherId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-  Transaction    Transactions @relation(fields: [TransactionId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model WithdrawDeposits {
-  WithdrawDepositId Int          @id @unique(map: "sqlite_autoindex_WithdrawDeposits_1") @default(autoincrement())
-  TransactionId     Int          @unique(map: "sqlite_autoindex_WithdrawDeposits_2")
-  IsWithdrawn       Int
-  Transaction       Transactions @relation(fields: [TransactionId], references: [Id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model Admins {
-  Id           Int    @id @unique(map: "sqlite_autoindex_Admins_1") @default(autoincrement())
-  Username     String
-  PasswordHash String
+model transaction {
+  id                String           @id @unique @default(cuid())
+  amount            Float?
+  longTermDeposit   longTermDeposit? @relation(fields: [longTermDepositId], references: [id])
+  longTermDepositId String?
+  simpleDeposit     simpleDeposit?   @relation(fields: [simpleDepositId], references: [id])
+  simpleDepositId   String?
+  withdrawDeposit   withdrawDeposit? @relation(fields: [withdrawDepositId], references: [id])
+  withdrawDepositId String?
 }
