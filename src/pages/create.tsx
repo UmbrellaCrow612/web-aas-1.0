@@ -10,18 +10,19 @@ export default function Page() {
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    alert("data sent ")
-    
-    // try {
-    //   const body = { firstName, lastName, address, annualSalary, age }
-    //   await fetch(`/api/post`, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(body),
-    //   })
-    // } catch (error) {
-    //   console.error(error)
-    // }
+    // Break if no account picked
+    if (account.length < 2) return alert('Select an account please')
+
+    try {
+      const body = { firstName, lastName, account, address, annualSalary, age }
+      await fetch(`/api/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+    } catch (error) {
+      alert(error)
+    }
   }
 
   const clearData = (e: any) => {
@@ -86,7 +87,11 @@ export default function Page() {
             onChange={(e) => setAge(e.target.valueAsNumber)}
           />
           <label>Account</label>
-          <select className="w-full max-w-xs select select-bordered">
+          <select
+            className="w-full max-w-xs select select-bordered"
+            onChange={(e) => setAccount(e.target.value)}
+            value={account}
+          >
             <option disabled selected>
               Account
             </option>
@@ -94,6 +99,7 @@ export default function Page() {
             <option>Long term deposit</option>
             <option>Current account</option>
           </select>
+          {account}
           <div className="justify-end py-5 card-actions">
             <button className="btn btn-primary" onSubmit={submitData}>
               Create
@@ -107,17 +113,3 @@ export default function Page() {
     </div>
   )
 }
-
-/*
-
-
- Id              Int               @id @unique(map: "sqlite_autoindex_Customers_1") @default(autoincrement())
-  FirstName       String
-  LastName        String
-  Address         String
-  AnnualSalary    Decimal
-  Age             Int
-  Account         Accounts?
-  SpecialCustomer SpecialCustomers?
-
-*/
