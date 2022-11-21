@@ -23,6 +23,8 @@ export default function Page() {
     } catch (error) {
       alert(error)
     }
+
+    clearData(e);
   }
 
   const clearData = (e: any) => {
@@ -97,7 +99,7 @@ export default function Page() {
             </option>
             <option>Simple deposit</option>
             <option>Long term deposit</option>
-            <option>Current account</option>
+            <option>Withdraw deposits</option>
           </select>
           {account}
           <div className="justify-end py-5 card-actions">
