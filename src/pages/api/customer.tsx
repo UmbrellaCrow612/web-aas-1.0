@@ -1,26 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import prisma from '../../lib/prisma'
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  let method = req.method
+  if (req.method == 'GET') {
+    let customers = await prisma.customer.findMany()
+    return res.status(200).json(customers)
+  } else if (req.method == 'POST') {
+    const { firstName, lastName, account, address, annualSalary, age } =
+      req.body
 
-  switch (method) {
-    case (method = 'GET'):
-      res.status(200).json([{ name: 'Hello get method' }])
-      break
-    case (method = 'POST'):
-      res.status(200).json([{ name: 'Hello post method' }])
-      break
-
-    case (method = 'PATCH'):
-      res.status(200).json([{ name: 'Hello patch method' }])
-      break
-
-    default:
-      res.status(400)
-      break
+    let result = await prisma.customer.create({
+      data: {
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        annualSalary: annualSalary,
+        age: age,
+      },
+    })
+    res.json(result)
   }
 }
 

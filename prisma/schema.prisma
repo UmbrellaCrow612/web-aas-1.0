@@ -15,6 +15,7 @@ model Customer {
   lastName            String
   address             String
   annualSalary        Float
+  age                 Int
   isSpecialCustomer   Boolean           @default(false)
   overdraftPercentage Float?
   longtermDeposits    longTermDeposit[]

@@ -15,7 +15,7 @@ export default function Page() {
 
     try {
       const body = { firstName, lastName, account, address, annualSalary, age }
-      await fetch(`/api/create`, {
+      await fetch(`/api/customer`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
