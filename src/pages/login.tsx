@@ -1,4 +1,13 @@
+import { useRouter } from 'next/router'
+import { FormEvent } from 'react'
+
 export default function Page() {
+  const Router = useRouter()
+
+  const verifyAdminDetails = async (e: FormEvent) => {
+    e.preventDefault()
+    Router.push('/')
+  }
   return (
     <section className="flex flex-col items-center justify-center min-h-screen gap-5">
       {/* Form */}
@@ -25,7 +34,12 @@ export default function Page() {
           </div>
 
           <div className="justify-end card-actions">
-            <button className="btn btn-primary">Sign in</button>
+            <button
+              className="btn btn-primary"
+              onClick={(e) => verifyAdminDetails(e)}
+            >
+              Sign in
+            </button>
           </div>
         </div>
       </div>
