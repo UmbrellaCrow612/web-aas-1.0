@@ -7,7 +7,7 @@ export default async function handle(
 ) {
   let customerId = req.query.id
 
-  const { newFirstName, newLastName, newSalary, newAge } = req.body
+  const { newFirstName, newLastName, newSalary, newAge, newAddress } = req.body
 
   if (req.method == 'GET') {
     let cus = await prisma.customer.findFirst({
@@ -21,6 +21,7 @@ export default async function handle(
         firstName: newFirstName,
         lastName: newLastName,
         annualSalary: newSalary,
+        address: newAddress,
         age: newAge,
       },
     })

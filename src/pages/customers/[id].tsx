@@ -27,7 +27,7 @@ export default function Page() {
     setLoading(true)
 
     try {
-      const body = { newFirstName, newLastName, newSalary, newAge }
+      const body = { newFirstName, newLastName, newSalary, newAge , newAddress}
       await fetch(`/api/customers/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
