@@ -9,6 +9,9 @@ const Home: NextPage = () => {
         <div className="card-body">
           <h2 className="card-title">Admin actions</h2>
           <div className="justify-end card-actions">
+            <Link href="/customers">
+              <a className="btn btn-primary">View customers</a>
+            </Link>
             <Link href="/create">
               <a className="btn btn-primary">Create user</a>
             </Link>
