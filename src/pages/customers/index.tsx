@@ -5,23 +5,30 @@ export default function Page() {
   const router = useRouter()
   const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(false)
+  const { id } = router.query
 
   useEffect(() => {
     setLoading(true)
-    fetch('/api/customer')
+    fetch(`/api/customers`)
       .then((res) => res.json())
       .then((data) => {
         setData(data)
         setLoading(false)
       })
-  }, [])
+  }, [id])
 
-  if (isLoading) return (
-    <div className="flex items-center justify-center min-h-screen">
-      <progress className="w-56 progress"></progress>
-    </div>
-  )
-  if (!data) return <div className='flex items-center justify-center min-h-screen'>No customers exists</div>
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <progress className="w-56 progress"></progress>
+      </div>
+    )
+  if (!data)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        No customers exists
+      </div>
+    )
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 py-10">
