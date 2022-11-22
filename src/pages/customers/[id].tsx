@@ -27,7 +27,24 @@ export default function Page() {
         <progress className="w-56 progress"></progress>
       </div>
     )
-  return <>{userDetails.firstName}</>
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      {/* Details card  */}
+
+      <div className="shadow-xl card w-96 bg-base-100">
+        <div className="card-body">
+          <h2 className="card-title">
+            Details for {userDetails.firstName} {userDetails.lastName}
+          </h2>
+          <p>address {userDetails.address}</p>
+          <p>Salary {userDetails.annualSalary}</p>
+          <p>Salary {userDetails.age}</p>
+        </div>
+      </div>
+
+      {/* Update form card  */}
+    </div>
+  )
 }
 
 // Can only edit, name , address, age, salary , overdraft percentage
