@@ -7,11 +7,24 @@ export default async function handle(
 ) {
   let customerId = req.query.id
 
+  const { newFirstName, newLastName, newSalary, newAge } = req.body
+
   if (req.method == 'GET') {
     let cus = await prisma.customer.findFirst({
       where: { id: String(customerId) },
     })
     res.json(cus)
+  } else if (req.method == 'PUT') {
+    let customer = await prisma.customer.update({
+      where: { id: String(customerId) },
+      data: {
+        firstName: newFirstName,
+        lastName: newLastName,
+        annualSalary: newSalary,
+        age: newAge,
+      },
+    })
+    res.status(200).json(customer)
   }
   // have a get
   // have a patch
