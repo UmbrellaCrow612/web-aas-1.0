@@ -32,6 +32,7 @@ model Admin {
 model longTermDeposit {
   id           String        @id @unique @default(cuid())
   balance      Float
+  isFrozen     Boolean       @default(false)
   transactions transaction[]
   Customer     Customer?     @relation(fields: [customerId], references: [id])
   customerId   String?
@@ -42,6 +43,7 @@ model longTermDeposit {
 model simpleDeposit {
   id           String        @id @unique @default(cuid())
   balance      Float
+  isFrozen     Boolean       @default(false)
   transactions transaction[]
   Customer     Customer?     @relation(fields: [customerId], references: [id])
   customerId   String?
@@ -52,6 +54,7 @@ model simpleDeposit {
 model withdrawDeposit {
   id           String        @id @unique @default(cuid())
   balance      Float
+  isFrozen     Boolean       @default(false)
   transactions transaction[]
   Customer     Customer?     @relation(fields: [customerId], references: [id])
   customerId   String?
@@ -71,3 +74,10 @@ model transaction {
 
   @@index([longTermDepositId, simpleDepositId, withdrawDepositId])
 }
+
+// Create account chosen 
+// Create others with it and set is as is frozen 
+// Add is special logic if salary is over 30k
+// Have dummy user with 10 previous tranactions
+// Put a overdraft percentage for special customers 
+// Blocked account 
