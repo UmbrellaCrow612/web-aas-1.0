@@ -39,8 +39,18 @@ export default function Page() {
 
     router.push('/')
     setLoading(false)
+  }
 
-    // Send data
+  const makeNewCard = async () => {
+    if (confirm('Are you sure you want to create a new card')) {
+      // Add card
+      await fetch(`/api/card/${id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+
+      router.push('/')
+    }
   }
 
   // get User details on first load
@@ -74,11 +84,19 @@ export default function Page() {
       <div className="shadow-xl card w-96 bg-base-100">
         <div className="card-body">
           <h2 className="card-title">
-            Details for {userDetails.firstName} {userDetails.lastName}
+            Details for {userDetails?.firstName} {userDetails?.lastName}
           </h2>
-          <p>address: {userDetails.address}</p>
-          <p>Salary: {userDetails.annualSalary}</p>
-          <p>Age: {userDetails.age}</p>
+          <p>address: {userDetails?.address}</p>
+          <p>Salary: {userDetails?.annualSalary}</p>
+          <p>Age: {userDetails?.age}</p>
+          <p>
+            Cards:{' '}
+            {userDetails?.cards.map((card: any) => (
+              <div className="" key={card.cardNumber}>
+                Card number {card.cardNumber}
+              </div>
+            ))}
+          </p>
         </div>
       </div>
 
@@ -92,7 +110,9 @@ export default function Page() {
             sent to customer
           </p>
           <div className="justify-end card-actions">
-            <button className="btn btn-primary">Issue new card</button>
+            <button className="btn btn-primary" onClick={() => makeNewCard()}>
+              Issue new card
+            </button>
           </div>
         </div>
       </div>
