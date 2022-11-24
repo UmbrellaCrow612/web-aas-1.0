@@ -27,7 +27,7 @@ export default function Page() {
     setLoading(true)
 
     try {
-      const body = { newFirstName, newLastName, newSalary, newAge , newAddress}
+      const body = { newFirstName, newLastName, newSalary, newAge, newAddress }
       await fetch(`/api/customers/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -54,6 +54,8 @@ export default function Page() {
       .catch((err) => alert(err))
   }, [id])
 
+  console.log(userDetails)
+
   // fetch the user details
   // effect send to /customers/id from params
   // in endpoint fetch that user and return it
@@ -77,6 +79,21 @@ export default function Page() {
           <p>address: {userDetails.address}</p>
           <p>Salary: {userDetails.annualSalary}</p>
           <p>Age: {userDetails.age}</p>
+        </div>
+      </div>
+
+      {/* Set a new card */}
+
+      <div className="shadow-xl card w-96 bg-base-100">
+        <div className="card-body">
+          <h2 className="card-title">Issue a new card</h2>
+          <p>
+            Old card will become un-unusable and new card will be created and
+            sent to customer
+          </p>
+          <div className="justify-end card-actions">
+            <button className="btn btn-primary">Issue new card</button>
+          </div>
         </div>
       </div>
 

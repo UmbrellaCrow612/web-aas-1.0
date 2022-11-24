@@ -12,6 +12,9 @@ export default async function handle(
   if (req.method == 'GET') {
     let cus = await prisma.customer.findFirst({
       where: { id: String(customerId) },
+      include: {
+        cards: true,
+      },
     })
     res.json(cus)
   } else if (req.method == 'PUT') {

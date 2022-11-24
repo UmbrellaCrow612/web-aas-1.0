@@ -25,6 +25,11 @@ export default async function handle(
           },
           annualSalary: annualSalary,
           age: age,
+          cards: {
+            create: {
+              cardNumber: 123456789,
+            },
+          },
         },
       })
       res.json(result)
@@ -41,6 +46,11 @@ export default async function handle(
           },
           annualSalary: annualSalary,
           age: age,
+          cards: {
+            create: {
+              cardNumber: 123456789,
+            },
+          },
         },
       })
       res.json(result)
@@ -57,6 +67,11 @@ export default async function handle(
           },
           annualSalary: annualSalary,
           age: age,
+          cards: {
+            create: {
+              cardNumber: 123456789,
+            },
+          },
         },
       })
       res.json(result)

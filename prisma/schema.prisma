@@ -21,6 +21,7 @@ model Customer {
   longtermDeposits    longTermDeposit[]
   simpleDeposits      simpleDeposit[]
   withdrawDeposits    withdrawDeposit[]
+   cards               Card[]
 }
 
 model Admin {
@@ -73,6 +74,13 @@ model transaction {
   withdrawDepositId String?
 
   @@index([longTermDepositId, simpleDepositId, withdrawDepositId])
+}
+
+model Card {
+  id         String    @id @unique @default(cuid())
+  cardNumber Int?
+  Customer   Customer? @relation(fields: [customerId], references: [id])
+  customerId String?
 }
 
 // Create account chosen 
