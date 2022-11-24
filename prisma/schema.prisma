@@ -80,4 +80,4 @@ model transaction {
 // Add is special logic if salary is over 30k
 // Have dummy user with 10 previous tranactions
 // Put a overdraft percentage for special customers 
-// Blocked account 
+// Blocked account / is frozen make them un frozen
