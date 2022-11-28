@@ -53,6 +53,10 @@ export default function Page() {
     }
   }
 
+  const setOverDraftPercentage = async () => {
+    // Push to endpoint that updates the percentage
+  }
+
   // get User details on first load
   useEffect(() => {
     fetch(`/api/customers/${id}`)
@@ -78,7 +82,7 @@ export default function Page() {
       </div>
     )
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-5">
+    <div className="flex flex-wrap items-center min-h-screen gap-5 py-10 justify-evenly">
       {/* Details card  */}
 
       <div className="shadow-xl card w-96 bg-base-100">
@@ -116,6 +120,33 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      {/* Special customer set overdraft percentage */}
+
+      {userDetails?.isSpecialCustomer ? (
+        <div className="shadow-xl card w-96 bg-base-100">
+          <div className="card-body">
+            <h2 className="card-title">
+              Set overdraft limit for special customer
+            </h2>
+            <input
+              type="number"
+              placeholder="Overdraft percentage"
+              className="w-full max-w-xs input input-bordered"
+            />
+            <div className="justify-end card-actions">
+              <button
+                className="btn btn-primary"
+                onClick={() => setOverDraftPercentage()}
+              >
+                Set overdraft
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
 
       {/* Update form card  */}
 

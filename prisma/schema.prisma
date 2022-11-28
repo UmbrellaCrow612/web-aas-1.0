@@ -17,11 +17,11 @@ model Customer {
   annualSalary        Float
   age                 Int
   isSpecialCustomer   Boolean           @default(false)
-  overdraftPercentage Float?
+  overdraftPercentage Float?            @default(0)
   longtermDeposits    longTermDeposit[]
   simpleDeposits      simpleDeposit[]
   withdrawDeposits    withdrawDeposit[]
-   cards               Card[]
+  cards               Card[]
 }
 
 model Admin {
