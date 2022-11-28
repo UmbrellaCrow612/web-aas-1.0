@@ -12,6 +12,7 @@ export default function Page() {
   const [newAddress, setNewAddress] = useState('')
   const [newSalary, setNewSalary] = useState(0)
   const [newAge, setNewAge] = useState(0)
+  const [overDraftPercentage, setOverDraftPercentage] = useState(0)
 
   const clearDate = (e: FormEvent) => {
     e.preventDefault()
@@ -53,8 +54,16 @@ export default function Page() {
     }
   }
 
-  const setOverDraftPercentage = async () => {
+  const submitOverdraftPercentage = async () => {
     // Push to endpoint that updates the percentage
+    // overDraftPercentage body
+    const body = { overDraftPercentage }
+    await fetch(`/api/overdraft/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    router.push('/')
   }
 
   // get User details on first load
@@ -139,11 +148,13 @@ export default function Page() {
               type="number"
               placeholder="Overdraft percentage"
               className="w-full max-w-xs input input-bordered"
+              value={overDraftPercentage}
+              onChange={(e) => setOverDraftPercentage(e.target.valueAsNumber)}
             />
             <div className="justify-end card-actions">
               <button
                 className="btn btn-primary"
-                onClick={() => setOverDraftPercentage()}
+                onClick={() => submitOverdraftPercentage()}
               >
                 Set overdraft
               </button>
