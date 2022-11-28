@@ -15,7 +15,7 @@ export default async function handle(
       data: {
         cards: {
           create: {
-            cardNumber: 987654321,
+            cardNumber: Number(Math.random().toString().slice(2, 11)),
           },
         },
       },
