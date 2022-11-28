@@ -18,18 +18,33 @@ export default async function handle(
     })
     res.json(cus)
   } else if (req.method == 'PUT') {
-    let customer = await prisma.customer.update({
-      where: { id: String(customerId) },
-      data: {
-        firstName: newFirstName,
-        lastName: newLastName,
-        annualSalary: newSalary,
-        address: newAddress,
-        age: newAge,
-      },
-    })
-    res.status(200).json(customer)
+    if (newSalary >= 30000) {
+      let customer = await prisma.customer.update({
+        where: { id: String(customerId) },
+        data: {
+          firstName: newFirstName,
+          lastName: newLastName,
+          annualSalary: newSalary,
+          address: newAddress,
+          isSpecialCustomer: true,
+          age: newAge,
+        },
+      })
+      res.status(200).json(customer)
+    } else {
+      let customer = await prisma.customer.update({
+        where: { id: String(customerId) },
+        data: {
+          firstName: newFirstName,
+          lastName: newLastName,
+          annualSalary: newSalary,
+          address: newAddress,
+          isSpecialCustomer: false,
+          age: newAge,
+        },
+      })
+      res.status(200).json(customer)
+    }
   }
-  // have a get
-  // have a patch
+  
 }

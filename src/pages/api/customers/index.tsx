@@ -11,7 +11,7 @@ export default async function handle(
   } else if (req.method == 'POST') {
     // Take stuff out
     const { firstName, lastName, address, annualSalary, age } = req.body
-    if (annualSalary > 30000) {
+    if (annualSalary >= 30000) {
       let result = await prisma.customer.create({
         data: {
           firstName: firstName,

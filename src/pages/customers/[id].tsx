@@ -90,6 +90,12 @@ export default function Page() {
           <h2 className="card-title">
             Details for {userDetails?.firstName} {userDetails?.lastName}
           </h2>
+          {userDetails?.isSpecialCustomer ? (
+            <p className="py-2 text-primary">Special customer</p>
+          ) : (
+            <></>
+          )}
+          <p>Overdraft percentage {userDetails?.overdraftPercentage}</p>
           <p>address: {userDetails?.address}</p>
           <p>Salary: {userDetails?.annualSalary}</p>
           <p>Age: {userDetails?.age}</p>
