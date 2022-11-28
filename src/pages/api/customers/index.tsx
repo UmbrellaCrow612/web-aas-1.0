@@ -10,38 +10,71 @@ export default async function handle(
     return res.status(200).json(customers)
   } else if (req.method == 'POST') {
     // Take stuff out
-    const { firstName, lastName, address, annualSalary, age } =
-      req.body
-    let result = await prisma.customer.create({
-      data: {
-        firstName: firstName,
-        lastName: lastName,
-        address: address,
-        simpleDeposits: {
-          create: {
-            balance: 0,
+    const { firstName, lastName, address, annualSalary, age } = req.body
+    if (annualSalary > 30000) {
+      let result = await prisma.customer.create({
+        data: {
+          firstName: firstName,
+          lastName: lastName,
+          address: address,
+          simpleDeposits: {
+            create: {
+              balance: 0,
+            },
+          },
+          longtermDeposits: {
+            create: {
+              balance: 0,
+            },
+          },
+          withdrawDeposits: {
+            create: {
+              balance: 0,
+            },
+          },
+          annualSalary: annualSalary,
+          age: age,
+          isSpecialCustomer: true,
+          cards: {
+            create: {
+              cardNumber: Number(Math.random().toString().slice(2, 11)),
+            },
           },
         },
-        longtermDeposits: {
-          create: {
-            balance: 0,
+      })
+      res.json(result)
+    } else {
+      let result = await prisma.customer.create({
+        data: {
+          firstName: firstName,
+          lastName: lastName,
+          address: address,
+          simpleDeposits: {
+            create: {
+              balance: 0,
+            },
+          },
+          longtermDeposits: {
+            create: {
+              balance: 0,
+            },
+          },
+          withdrawDeposits: {
+            create: {
+              balance: 0,
+            },
+          },
+          annualSalary: annualSalary,
+          age: age,
+          cards: {
+            create: {
+              cardNumber: Number(Math.random().toString().slice(2, 11)),
+            },
           },
         },
-        withdrawDeposits: {
-          create: {
-            balance: 0,
-          },
-        },
-        annualSalary: annualSalary,
-        age: age,
-        cards: {
-          create: {
-            cardNumber: Number(Math.random().toString().slice(2,11)),
-          },
-        },
-      },
-    })
-    res.json(result)
+      })
+      res.json(result)
+    }
   }
 }
 
