@@ -14,6 +14,7 @@ export default async function handle(
       where: { id: String(customerId) },
       include: {
         cards: true,
+        transactions: true,
       },
     })
     res.json(cus)
@@ -46,5 +47,4 @@ export default async function handle(
       res.status(200).json(customer)
     }
   }
-  
 }

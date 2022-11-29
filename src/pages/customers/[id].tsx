@@ -119,6 +119,22 @@ export default function Page() {
         </div>
       </div>
 
+      {/* Transactions history */}
+
+      <div className="shadow-xl card w-96 bg-base-100 max-h-[300px] overflow-y-scroll">
+        <div className="card-body">
+          <h2 className="card-title">Transactions</h2>
+          <p>
+            {userDetails?.transactions.map((item: any) => (
+              <p key={item.amount}>
+                {' '}
+                £ {item?.amount} At {new Date(item?.createdAt).toDateString()}
+              </p>
+            ))}
+          </p>
+        </div>
+      </div>
+
       {/* Set a new card */}
 
       <div className="shadow-xl card w-96 bg-base-100">
