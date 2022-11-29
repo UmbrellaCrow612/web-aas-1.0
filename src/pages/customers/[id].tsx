@@ -128,7 +128,12 @@ export default function Page() {
             {userDetails?.transactions.map((item: any) => (
               <p key={item.amount}>
                 {' '}
-                £ {item?.amount} At {new Date(item?.createdAt).toDateString()}
+                £ {item?.amount} At {new Date(item?.createdAt).toDateString()}{' '}
+                {Math.random() > 0.5 ? (
+                  <span>Withdrawn</span>
+                ) : (
+                  <span>Deposited</span>
+                )}
               </p>
             ))}
           </p>
