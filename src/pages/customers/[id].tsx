@@ -129,11 +129,7 @@ export default function Page() {
               <p key={item.amount}>
                 {' '}
                 £ {item?.amount} At {new Date(item?.createdAt).toDateString()}{' '}
-                {Math.random() > 0.5 ? (
-                  <span>Withdrawn</span>
-                ) : (
-                  <span>Deposited</span>
-                )}
+                {item?.type}
               </p>
             ))}
           </p>

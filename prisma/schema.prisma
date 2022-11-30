@@ -6,6 +6,8 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
+  // Must keep below even if it complains
+  previewFeatures = ["referentialIntegrity"]
 }
 
 model Customer {
@@ -63,9 +65,12 @@ model withdrawDeposit {
 model Transaction {
   id         String    @id @unique @default(cuid())
   amount     Float?
+  type       String? 
   createdAt  DateTime? @default(now())
   Customer   Customer? @relation(fields: [customerId], references: [id])
   customerId String?
+
+  @@index([customerId])
 }
 
 model Card {
@@ -73,6 +78,8 @@ model Card {
   cardNumber Int?
   Customer   Customer? @relation(fields: [customerId], references: [id])
   customerId String?
+
+  @@index([customerId])
 }
 
 // Create account chosen 
