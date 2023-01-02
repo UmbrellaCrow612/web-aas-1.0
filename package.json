@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.6.0",
-    "daisyui": "2.39.0",
+    "daisyui": "2.46.1",
     "next": "12.2.5",
     "next-themes": "0.2.1",
     "prisma": "^4.6.0",
